@@ -18,6 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined';
 import MailIcon from '@material-ui/icons/Mail';
+import MediaControlCard from '../components/VideoEmbed'
+
+import SearchArea from '../components/SearchArea'
 
 const drawerWidth = 240;
 
@@ -42,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+	},
+	 searchArea: {
+    marginLeft: 100,
   },
   hide: {
     display: 'none',
@@ -120,6 +126,10 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap>
             Proven Solutions NLP Engine
           </Typography>
+					<div className={classes.searchArea}>
+						<SearchArea />
+					</div>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -184,6 +194,8 @@ export default function MiniDrawer() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+				<MediaControlCard />
+				<MediaControlCard />
       </main>
     </div>
   );
