@@ -4,6 +4,10 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -57,7 +61,7 @@ export default function SignUp() {
           <Avatar alt="Proven Solution" src="/assets/images/proven-solution-logo.png" />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign Up
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -107,6 +111,22 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
+						<Grid item xs={16}>
+						<FormControl component="fieldset" className={classes.formControl}>
+        			<FormLabel component="legend">Assign Role</FormLabel>
+							<FormHelperText>Roles</FormHelperText>
+        			<FormGroup>
+          			<FormControlLabel
+            		control={<Checkbox name="dev" />}
+            		label="Developer"
+          			/>
+          			<FormControlLabel
+            		control={<Checkbox name="BA" />}
+            		label="Business Analyst"
+          			/>
+        			</FormGroup>
+      			</FormControl>
+						</Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
