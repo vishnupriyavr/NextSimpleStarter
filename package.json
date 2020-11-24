@@ -26,6 +26,10 @@
     "start": "NODE_ENV=production node server"
   },
   "devDependencies": {
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
     "workbox-webpack-plugin": "^4.0.0"
   }
 }
