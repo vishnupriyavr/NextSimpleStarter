@@ -10,6 +10,7 @@ import {
   Segment,
   Sidebar,
 } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
 
 const HorizontalSidebar = ({ animation, direction, visible }) => (
   <Sidebar
