@@ -10,7 +10,7 @@ export default function Templates() {
 		<div>
 
 			<ViewingMode/>
-				<TemplateEmbed />
+				<TemplateEmbed/>
 
 
 		</div>
