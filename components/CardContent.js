@@ -10,17 +10,20 @@ import Typography from '@material-ui/core/Typography';
     display: 'block',
     width: '30vw',
     transitionDuration: '0.3s',
-    height: '25vw'
+    height: '15vw'
 }
 
 const useStyles = makeStyles({
   root: {
 		minWidth: 100,
 	},
+	spaceBetweenCards: {
+		margin: 30
+	},
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
-    transform: 'scale(0.8)',
+    transform: 'scale(0.8)'
   },
   title: {
     fontSize: 14,
@@ -38,18 +41,10 @@ export default function OutlinedCard() {
     <Card style={cardStyle} className={classes.root} variant="outlined">
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
+         Blog
         </Typography>
         <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"How are you?"'}
+          Proven Solution NLP Engine
         </Typography>
       </CardContent>
       <CardActions>
