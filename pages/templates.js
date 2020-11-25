@@ -1,19 +1,22 @@
 import React from 'react';
-import AppMenuBar from "../components/AppMenuBar"
+//import AppMenuBar from "../components/AppMenuBar"
 import ViewingMode from "../components/ViewingMode"
+import TemplateEmbed from "../components/TemplateEmbed"
 //import MediaControlCard from "../components/VideoEmbed"
 
 
-function Templates() {
+export default function Templates() {
 	return(
 		<div>
-			<ViewingMode>
-				<AppMenuBar />
-			</ViewingMode>
+
+			<ViewingMode/>
+				<TemplateEmbed />
+
+
 		</div>
 
 
 	);
 }
 
-export default Templates
+

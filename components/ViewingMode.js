@@ -2,7 +2,8 @@ import React from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import MiniDrawer from './SideBar';
+import AppMenuBar from "../components/AppMenuBar"
+
 
 export default function ViewingMode() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -23,7 +24,7 @@ export default function ViewingMode() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-			<MiniDrawer/>
+			<AppMenuBar />
     </ThemeProvider>
   );
 }

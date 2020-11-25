@@ -19,6 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined';
 import MailIcon from '@material-ui/icons/Mail';
 import MediaControlCard from '../components/VideoEmbed'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import SearchArea from '../components/SearchArea'
 
@@ -46,9 +47,12 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: 36,
 	},
-	 searchArea: {
-    marginLeft: 100,
-  },
+	searchArea: {
+    marginLeft: 50,
+	},
+	userAccountArea: {
+		marginLeft: 700
+	},
   hide: {
     display: 'none',
   },
@@ -86,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+	},
+	getStarted: {
+    marginTop: 50,
   },
 }));
 
@@ -124,12 +131,14 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Proven Solutions NLP Engine
+            Proven Solution NLP Engine
           </Typography>
 					<div className={classes.searchArea}>
 						<SearchArea />
 					</div>
-
+					<div className={classes.userAccountArea}>
+						<AccountCircleIcon fontSize="large" />
+					</div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -171,31 +180,22 @@ export default function MiniDrawer() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
+				<div className={classes.getStarted}>
+        <Typography variant="h4" noWrap>
+            Get Started
         </Typography>
-        <Typography>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
+				</div>
+				<div className={classes.getStarted}>
+				<Typography variant="h5" noWrap>
+           You can get started with Proven Solution NLP Engine with the help of the following video guides:
         </Typography>
+				</div>
+				<div className={classes.getStarted}>
 				<MediaControlCard />
+				</div>
+				<div className={classes.getStarted}>
 				<MediaControlCard />
+				</div>
       </main>
     </div>
   );

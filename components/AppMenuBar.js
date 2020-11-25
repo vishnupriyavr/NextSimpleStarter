@@ -19,6 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined';
 import MailIcon from '@material-ui/icons/Mail';
 import MediaControlCard from '../components/VideoEmbed'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import SearchArea from '../components/SearchArea'
 
@@ -47,8 +48,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 36,
 	},
 	 searchArea: {
-    marginLeft: 100,
-  },
+    marginLeft: 50,
+	},
+	userAccountArea: {
+		marginLeft: 700
+	},
   hide: {
     display: 'none',
   },
@@ -86,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+	},
+	getStarted: {
+    marginTop: 50,
   },
 }));
 
@@ -93,6 +100,14 @@ export default function AppMenuBar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -120,8 +135,48 @@ export default function AppMenuBar() {
 					<div className={classes.searchArea}>
 						<SearchArea />
 					</div>
+					<div className={classes.userAccountArea}>
+						<AccountCircleIcon fontSize="large" />
+					</div>
         </Toolbar>
       </AppBar>
+			<Drawer
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon color= "secondary" add_circle/> : <InboxOutlinedIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
 			</div>
 	);
 					}
