@@ -190,12 +190,6 @@ export default function MiniDrawer() {
            You can get started with Proven Solution NLP Engine with the help of the following video guides:
         </Typography>
 				</div>
-				<div className={classes.getStarted}>
-				<MediaControlCard />
-				</div>
-				<div className={classes.getStarted}>
-				<MediaControlCard />
-				</div>
       </main>
     </div>
   );
