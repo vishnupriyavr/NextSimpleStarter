@@ -1,17 +1,26 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import Button from '@material-ui/core/Button';
+
+
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    marginTop: 150,
-    marginLeft: 155
+	formControl: {
+    marginTop: 30,
+		marginLeft: 80,
+		marginRight: 80
   },
   structuredformControl: {
     marginTop: 30,
@@ -20,9 +29,42 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1, 1, 0, 0),
   },
+  root: {
+		width: '80%',
+		marginTop: 150,
+		marginLeft: 155,
+		marginRight: 500
+  },
+  button: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  actionsContainer: {
+    marginBottom: theme.spacing(2),
+  },
+  resetContainer: {
+    padding: theme.spacing(3),
+  },
 }));
 
-export default function ErrorRadios() {
+function getSteps() {
+  return ['Choose the type of data you have', 'Upload your data', 'Create a Model'];
+}
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return UploadDataOptions();
+    case 1:
+			return StructuredDataFlow();
+    case 2:
+      return `Now that we have all the data, lets make efficient use of it and `;
+    default:
+      return 'Unknown step';
+  }
+}
+
+function UploadDataOptions() {
   const classes = useStyles();
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
@@ -48,17 +90,132 @@ export default function ErrorRadios() {
         <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
     </form>
-    <form>
+    </div>
+  );
+}
+
+function UnstructuredDataFlow() {
+	const classes = useStyles();
+  const [value, setValue] = React.useState('');
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState('Choose wisely');
+
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    setHelperText(' ');
+    setError(false);
+  };
+	return(
+		<div>
+			<form>
 	<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">Please provide your data in any of the formats as below: </FormLabel>
         <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
           <FormControlLabel value="excel" control={<Radio />} label="Excel" />
           <FormControlLabel value="csv" control={<Radio />} label="csv(comma seperated file)" />
-					<FormControlLabel value="csv" control={<Radio />} label="txt(text file with entries)" />
+					<FormControlLabel value="txt" control={<Radio />} label="txt(text file with entries)" />
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
     </form>
+		</div>
+
+	);
+}
+
+function StructuredDataFlow() {
+	const classes = useStyles();
+  const [value, setValue] = React.useState('');
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState('Choose wisely');
+
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    setHelperText(' ');
+    setError(false);
+  };
+	return(
+		<div>
+			<form>
+				<Paper elevation={3} variant="outlined">
+				<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
+        <FormLabel component="legend">What is the amount of data you have?</FormLabel>
+        <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
+          <FormControlLabel value="highData" control={<Radio />} label="High" />
+          <FormControlLabel value="lowData" control={<Radio />} label="Low" />
+        </RadioGroup>
+        <FormHelperText>{helperText}</FormHelperText>
+      </FormControl>
+			<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
+        <FormLabel component="legend">What level of accuracy do you want to achieve? </FormLabel>
+        <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
+          <FormControlLabel value="highAccuracy" control={<Radio />} label="High" />
+          <FormControlLabel value="lowAccuracy" control={<Radio />} label="Low" />
+        </RadioGroup>
+        <FormHelperText>{helperText}</FormHelperText>
+      </FormControl>
+			</Paper>
+    </form>
+		</div>
+	);
+}
+
+export default function NLUDataContent() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  return (
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+            <StepContent>
+              <Typography>{getStepContent(index)}</Typography>
+              <div className={classes.actionsContainer}>
+                <div>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.button}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? 'Let us create a bot!' : 'Next'}
+                  </Button>
+                </div>
+              </div>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} className={classes.resetContainer}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} className={classes.button}>
+            Reset
+          </Button>
+        </Paper>
+      )}
     </div>
   );
 }

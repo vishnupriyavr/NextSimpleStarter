@@ -20,6 +20,7 @@ import InboxOutlinedIcon from '@material-ui/icons/InboxOutlined';
 import MailIcon from '@material-ui/icons/Mail';
 import MediaControlCard from '../components/VideoEmbed'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import green from '@material-ui/core/colors/green';
 
 import SearchArea from '../components/SearchArea'
 
@@ -27,13 +28,14 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-  },
+		display: 'flex',
+	},
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+			duration: theme.transitions.duration.leavingScreen,
+			color: green.A400
     }),
   },
   appBarShift: {
