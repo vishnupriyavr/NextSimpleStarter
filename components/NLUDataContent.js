@@ -13,10 +13,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const useStyles = makeStyles((theme) => ({
+	close: {
+    padding: theme.spacing(0.5),
+  },
 	formControl: {
     marginTop: 30,
 		marginLeft: 80,
@@ -58,7 +63,7 @@ function getStepContent(step) {
     case 1:
 			return StructuredDataFlow();
     case 2:
-      return `Now that we have all the data, lets make efficient use of it and `;
+      return `Now that we have all the data, lets make efficient use of it and ` , ChooseModel();
     default:
       return 'Unknown step';
   }
@@ -81,6 +86,7 @@ function UploadDataOptions() {
   return (
       <div>
     <form>
+			<Paper elevation={7} square>
       <FormControl component="fieldset" error={error} className={classes.formControl}>
         <FormLabel component="legend">Your data is: </FormLabel>
         <RadioGroup row aria-label="data" name="data" value={value} onChange={handleRadioChange}>
@@ -89,6 +95,7 @@ function UploadDataOptions() {
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
+			</Paper>
     </form>
     </div>
   );
@@ -108,6 +115,7 @@ function UnstructuredDataFlow() {
 	return(
 		<div>
 			<form>
+				<Paper elevation={7} square>
 	<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">Please provide your data in any of the formats as below: </FormLabel>
         <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
@@ -117,6 +125,7 @@ function UnstructuredDataFlow() {
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
+			</Paper>
     </form>
 		</div>
 
@@ -137,18 +146,22 @@ function StructuredDataFlow() {
 	return(
 		<div>
 			<form>
-				<Paper elevation={3} variant="outlined">
+				<Paper elevation={7} square>
 				<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">What is the amount of data you have?</FormLabel>
-        <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
+        <RadioGroup aria-label="amountData" name="data" value={value} onChange={handleRadioChange}>
           <FormControlLabel value="highData" control={<Radio />} label="High" />
           <FormControlLabel value="lowData" control={<Radio />} label="Low" />
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
+			</Paper>
+		</form>
+		<form>
+			<Paper elevation={7} square>
 			<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">What level of accuracy do you want to achieve? </FormLabel>
-        <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
+        <RadioGroup aria-label="accuracyData" name="data" value={value} onChange={handleRadioChange}>
           <FormControlLabel value="highAccuracy" control={<Radio />} label="High" />
           <FormControlLabel value="lowAccuracy" control={<Radio />} label="Low" />
         </RadioGroup>
@@ -156,8 +169,88 @@ function StructuredDataFlow() {
       </FormControl>
 			</Paper>
     </form>
+		<form>
+			<Paper elevation={7} square>
+			<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
+        <FormLabel component="legend">Do you want to choose from the models that we have? </FormLabel>
+        <RadioGroup aria-label="modelData" name="data" value={value} onChange={handleRadioChange}>
+          <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+          <FormControlLabel value="no" control={<Radio />} label="No" />
+        </RadioGroup>
+        <FormHelperText>{helperText}</FormHelperText>
+      </FormControl>
+			</Paper>
+    </form>
 		</div>
 	);
+}
+
+function ChooseModel() {
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      // Set a new snack when we don't have an active one
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      // Close an active snack when a new one is added
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const handleClick = (message) => () => {
+    setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const classes = useStyles();
+  return (
+    <div>
+      <Button onClick={handleClick('Message A')}>Gensim Arabic Model</Button>
+      <Button onClick={handleClick('Message B')}>ConveRT English Model</Button>
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        onExited={handleExited}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+              UNDO
+            </Button>
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              className={classes.close}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+    </div>
+  );
 }
 
 export default function NLUDataContent() {
