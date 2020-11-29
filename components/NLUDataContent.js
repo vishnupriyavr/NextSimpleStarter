@@ -16,6 +16,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { green, purple, yellow } from '@material-ui/core/colors';
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,16 +41,42 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: 150,
 		marginLeft: 155,
 		marginRight: 500
+	},
+	paperRoot: {
+    backgroundColor: 'blue'
   },
   button: {
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
-  },
+	},
+	modelButton: {
+		marginTop: 3,
+		marginLeft: 3,
+		marginRight: 3,
+		marginBottom:3
+	},
   actionsContainer: {
     marginBottom: theme.spacing(2),
+	},
+	stepIcon:{
+      iconColor: green,
+    "&$activeIcon": {
+      color: theme.palette.primary.main
+    },
+    "&$completedIcon": {
+      color: theme.palette.primary.main
+    }
   },
+  activeIcon: {},
+  completedIcon: {},
   resetContainer: {
     padding: theme.spacing(3),
+	},
+	modelInfoRoot: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
 }));
 
@@ -86,7 +114,7 @@ function UploadDataOptions() {
   return (
       <div>
     <form>
-			<Paper elevation={7} square>
+			<Paper elevation={7} square className={classes.paperRoot}>
       <FormControl component="fieldset" error={error} className={classes.formControl}>
         <FormLabel component="legend">Your data is: </FormLabel>
         <RadioGroup row aria-label="data" name="data" value={value} onChange={handleRadioChange}>
@@ -115,7 +143,7 @@ function UnstructuredDataFlow() {
 	return(
 		<div>
 			<form>
-				<Paper elevation={7} square>
+				<Paper elevation={7} square className={classes.paperRoot}>
 	<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">Please provide your data in any of the formats as below: </FormLabel>
         <RadioGroup aria-label="data" name="data" value={value} onChange={handleRadioChange}>
@@ -146,7 +174,7 @@ function StructuredDataFlow() {
 	return(
 		<div>
 			<form>
-				<Paper elevation={7} square>
+				<Paper elevation={7} square className={classes.paperRoot}>
 				<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">What is the amount of data you have?</FormLabel>
         <RadioGroup aria-label="amountData" name="data" value={value} onChange={handleRadioChange}>
@@ -158,7 +186,7 @@ function StructuredDataFlow() {
 			</Paper>
 		</form>
 		<form>
-			<Paper elevation={7} square>
+			<Paper elevation={7} square className={classes.paperRoot}>
 			<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">What level of accuracy do you want to achieve? </FormLabel>
         <RadioGroup aria-label="accuracyData" name="data" value={value} onChange={handleRadioChange}>
@@ -170,7 +198,7 @@ function StructuredDataFlow() {
 			</Paper>
     </form>
 		<form>
-			<Paper elevation={7} square>
+			<Paper elevation={7} square className={classes.paperRoot}>
 			<FormControl component="fieldset" error={error} className={classes.structuredformControl}>
         <FormLabel component="legend">Do you want to choose from the models that we have? </FormLabel>
         <RadioGroup aria-label="modelData" name="data" value={value} onChange={handleRadioChange}>
@@ -183,6 +211,10 @@ function StructuredDataFlow() {
     </form>
 		</div>
 	);
+}
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function ChooseModel() {
@@ -219,25 +251,36 @@ function ChooseModel() {
 
   const classes = useStyles();
   return (
-    <div>
-      <Button onClick={handleClick('Message A')}>Gensim Arabic Model</Button>
-      <Button onClick={handleClick('Message B')}>ConveRT English Model</Button>
+		<>
+		<Paper elevation={7} square className={classes.paperRoot}>
+    <div className={classes.modelButton}>
+			<p>Please choose a model from below:</p>
+			<p> Arabic Models:</p>
+      <Button variant="outlined" color="secondary" onClick={handleClick(<Alert severity="info">'Message A, This is very good'</Alert>)}>Gensim</Button>&nbsp;&nbsp;&nbsp;
+			<Button variant="outlined" color="secondary" onClick={handleClick('Message A')}>FastText</Button>&nbsp;&nbsp;&nbsp;
+			<Button variant="outlined" color="secondary" onClick={handleClick('Message A')}>BytePair</Button>&nbsp;&nbsp;&nbsp;
+			<Button variant="outlined" color="secondary" onClick={handleClick('Message A')}>Stanza</Button>&nbsp;&nbsp;&nbsp;
+			<Button variant="outlined" color="secondary" onClick={handleClick('Message A')}>Count Vectors</Button>&nbsp;&nbsp;&nbsp;
+			<p> English Models:</p>
+      <Button variant="outlined" color="secondary" onClick={handleClick('Message B')}>ConveRT</Button>
+			<p> Now that we have all the data, lets make efficient use of it and </p>
+		</div>
+		<div className={classes.modelInfoRoot}>
       <Snackbar
         key={messageInfo ? messageInfo.key : undefined}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        open={open}
+				open={open}
+				severity="info"
         autoHideDuration={6000}
         onClose={handleClose}
         onExited={handleExited}
         message={messageInfo ? messageInfo.message : undefined}
         action={
           <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
-              UNDO
-            </Button>
+
             <IconButton
               aria-label="close"
               color="inherit"
@@ -249,7 +292,9 @@ function ChooseModel() {
           </React.Fragment>
         }
       />
-    </div>
+		</div>
+		</Paper>
+		</>
   );
 }
 
@@ -275,12 +320,14 @@ export default function NLUDataContent() {
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel StepIconProps={{ classes:{ root: classes.icon, active: classes.activeIcon, completed: classes.completedIcon } }}>{label}</StepLabel>
             <StepContent>
               <Typography>{getStepContent(index)}</Typography>
               <div className={classes.actionsContainer}>
                 <div>
                   <Button
+										variant="contained"
+                    color="yellow"
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classes.button}
@@ -293,6 +340,7 @@ export default function NLUDataContent() {
                     onClick={handleNext}
                     className={classes.button}
                   >
+
                     {activeStep === steps.length - 1 ? 'Let us create a bot!' : 'Next'}
                   </Button>
                 </div>

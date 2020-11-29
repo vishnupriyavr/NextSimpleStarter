@@ -1,13 +1,13 @@
 import React from 'react';
 import ViewingMode from "../components/ViewingMode"
-import NLPDataComponent from "../components/NLPDataComponent"
+import NLUDataContent from "../components/NLUDataContent"
 
 export default function Templates() {
 	return(
 		<div>
 
 			<ViewingMode/>
-				<NLPDataComponent />
+				<NLUDataContent />
 
 
 
@@ -16,3 +16,4 @@ export default function Templates() {
 
 	);
 }
+
