@@ -24,6 +24,9 @@ import green from '@material-ui/core/colors/green';
 
 import SearchArea from '../components/SearchArea'
 
+import GetStarted from "../pages/getstarted"
+import Templates from "../pages/templates"
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-			color: green.A400
+			duration: theme.transitions.duration.leavingScreen
     }),
   },
   appBarShift: {
@@ -101,7 +103,8 @@ const useStyles = makeStyles((theme) => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(false);
+	const [component, setComponent] = React.useState('getstarted')
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -181,7 +184,18 @@ export default function MiniDrawer() {
         </List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+
+				<div className={classes.toolbar} />
+        {
+          component === 'getstarted' ?
+          <GetStarted />
+          :
+					component === 'templates' ?
+					:
+          <Templates />
+					...
+        }
+				<div className={classes.toolbar} />
 				<div className={classes.getStarted}>
         <Typography variant="h4" noWrap>
             Get Started

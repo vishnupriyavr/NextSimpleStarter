@@ -25,7 +25,9 @@ function GetStarted() {
 		<div>
 
 				<ViewingMode/>
-					<MiniDrawer/>
+					<MiniDrawer>
+
+						</MiniDrawer>
 					<Grid container spacing={24}>
   					<Grid item md={3} className={classes.spaceBetweenCards}>
     					<div className={classes.getStarted}>
