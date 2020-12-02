@@ -1,37 +1,38 @@
 {
-  "name": "next-simple-starter",
-  "version": "1.0.0",
-  "repository": {
-    "url": "https://github.com/ooade/NextSimpleStarter"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@zeit/next-css": "^1.0.1",
-    "isomorphic-fetch": "^2.2.1",
-    "next": "^8.0.0",
-    "next-redux-wrapper": "^2.0.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-redux": "^6.0.0",
-    "recharts": "^1.8.5",
-    "redux": "^3.7.2",
-    "sass": "^1.29.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.1"
-  },
-  "scripts": {
-    "dev": "node server",
-    "build": "next build",
-    "start": "NODE_ENV=production node server"
-  },
-  "devDependencies": {
-    "css-loader": "^5.0.1",
-    "file-loader": "^6.2.0",
-    "style-loader": "^2.0.0",
-    "url-loader": "^4.1.1",
-    "workbox-webpack-plugin": "^4.0.0"
-  }
+	"name": "next-simple-starter",
+	"version": "1.0.0",
+	"repository": {
+		"url": "https://github.com/ooade/NextSimpleStarter"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@material-ui/core": "^4.11.0",
+		"@material-ui/icons": "^4.9.1",
+		"@material-ui/lab": "^4.0.0-alpha.56",
+		"@zeit/next-css": "^1.0.1",
+		"isomorphic-fetch": "^2.2.1",
+		"next": "^8.0.0",
+		"next-redux-wrapper": "^2.0.0",
+		"react": "^16.8.1",
+		"react-dom": "^16.8.1",
+		"react-redux": "^6.0.0",
+		"react-window": "^1.8.6",
+		"recharts": "^1.8.5",
+		"redux": "^3.7.2",
+		"sass": "^1.29.0",
+		"semantic-ui-css": "^2.4.1",
+		"semantic-ui-react": "^2.0.1"
+	},
+	"scripts": {
+		"dev": "node server",
+		"build": "next build",
+		"start": "NODE_ENV=production node server"
+	},
+	"devDependencies": {
+		"css-loader": "^5.0.1",
+		"file-loader": "^6.2.0",
+		"style-loader": "^2.0.0",
+		"url-loader": "^4.1.1",
+		"workbox-webpack-plugin": "^4.0.0"
+	}
 }

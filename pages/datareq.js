@@ -1,19 +1,12 @@
-import React from 'react';
-import ViewingMode from "../components/ViewingMode"
-import NLUDataContent from "../components/NLUDataContent"
+import React from 'react'
+import ViewingMode from '../components/ViewingMode'
+import DataRequirements from '../components/DataRequirements'
 
 export default function Templates() {
-	return(
+	return (
 		<div>
-
-			<ViewingMode/>
-				<NLUDataContent />
-
-
-
+			<ViewingMode />
+			<DataRequirements />
 		</div>
-
-
-	);
+	)
 }
-
