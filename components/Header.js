@@ -30,6 +30,8 @@ import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile'
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
 import SdCardIcon from '@material-ui/icons/SdCard'
 
+import GetStarted from '../pages/getstarted'
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 		transition: theme.transitions.create(['width', 'margin'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
-			color: green.A400,
 		}),
 	},
 	appBarShift: {
@@ -116,7 +117,7 @@ export default function Header() {
 	const classes = useStyles()
 	const theme = useTheme()
 	const [open, setOpen] = React.useState(false)
-	const [component, setComponent] = React.useState(false)
+	const [component, setComponent] = React.useState('getstarted')
 
 	const handleDrawerOpen = () => {
 		setOpen(true)
@@ -181,43 +182,73 @@ export default function Header() {
 				</div>
 				<Divider />
 
-				<FixedSizeList height={400} width={300} itemSize={46} itemCount={1}>
-					{renderMenu}
-				</FixedSizeList>
+				{renderMenu}
 			</Drawer>
+			<main className={classes.content}>
+				<div className={classes.toolbar} />
+				{component === 'getstarted' ? (
+					<GetStarted />
+				) : component === 'templates' ? (
+					<Templates />
+				) : component === 'datareq' ? (
+					<DataRequirements />
+				) : (
+					<Metrics />
+				)}
+			</main>
 		</div>
 	)
-}
 
-function renderMenu(props) {
-	const { displayName, value } = props
+	const renderMenu = (props) => {
+		return (
+			<>
+				<List>
+					<ListItem
+						button
+						key="Get Started"
+						onClick={() => setComponent('getstarted')}
+					>
+						<ListItemIcon>
+							<PlayCircleFilledIcon color="secondary" add_circle />
+						</ListItemIcon>
 
-	return (
-		<>
-			<ListItem button key={displayName}>
-				<ListItemIcon>
-					<PlayCircleFilledIcon color="secondary" add_circle />
-				</ListItemIcon>
-				<ListItemText primary="Get Started" />
-			</ListItem>
-			<ListItem button key={displayName}>
-				<ListItemIcon>
-					<InsertDriveFileIcon color="secondary" add_circle />
-				</ListItemIcon>
-				<ListItemText primary="Templates" />
-			</ListItem>
-			<ListItem button key={displayName}>
-				<ListItemIcon>
-					<SdCardIcon color="secondary" add_circle />
-				</ListItemIcon>
-				<ListItemText primary="Data Requirements" />
-			</ListItem>
-			<ListItem button key={displayName}>
-				<ListItemIcon>
-					<AssessmentIcon color="secondary" add_circle />
-				</ListItemIcon>
-				<ListItemText primary="Metrics" />
-			</ListItem>
-		</>
-	)
+						<ListItemText primary="Get Started" />
+					</ListItem>
+					<ListItem
+						button
+						key="Templates"
+						onClick={() => setComponent('templates')}
+					>
+						<ListItemIcon>
+							<InsertDriveFileIcon color="secondary" add_circle />
+						</ListItemIcon>
+
+						<ListItemText primary="Templates" />
+					</ListItem>
+					<ListItem
+						button
+						key="Data Needs"
+						onClick={() => setComponent('datareq')}
+					>
+						<ListItemIcon>
+							<SdCardIcon color="secondary" add_circle />
+						</ListItemIcon>
+
+						<ListItemText primary="Data Requirements" />
+					</ListItem>
+					<ListItem
+						button
+						key="Metrics"
+						onClick={() => setComponent('metrics')}
+					>
+						<ListItemIcon>
+							<AssessmentIcon color="secondary" add_circle />
+						</ListItemIcon>
+
+						<ListItemText primary="Metrics" />
+					</ListItem>
+				</List>
+			</>
+		)
+	
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Header from '../components/Header'
+import SemanticHeader from './SemanticHeader'
 
 export default function SiteHome() {
-	return <Header />
+	return <SemanticHeader />
 }
